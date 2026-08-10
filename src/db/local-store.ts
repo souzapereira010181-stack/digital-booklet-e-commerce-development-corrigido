@@ -335,10 +335,7 @@ export async function writeStore(store: Store): Promise<void> {
     return;
   }
 
-  ensureFile();
-  const tmp = `${file}.tmp`;
-  fs.writeFileSync(tmp, JSON.stringify(store, null, 2), "utf8");
-  fs.renameSync(tmp, file);
+  if (process.env.NETLIFY) { throw new Error("Supabase não está configurado no servidor do Netlify."); } else { ensureFile(); const tmp = `${file}.tmp`; fs.writeFileSync(tmp, JSON.stringify(store, null, 2), "utf8"); fs.renameSync(tmp, file); }
 }
 export function nextId(items: { id: number }[]) {
   return items.reduce((max, item) => Math.max(max, item.id), 0) + 1;
@@ -429,7 +426,4 @@ export async function removeProductPdf(pdfPath: string | null | undefined) {
     },
   });
 }
-
-
-
 
