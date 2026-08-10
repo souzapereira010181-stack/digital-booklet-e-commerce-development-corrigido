@@ -1,4 +1,4 @@
-import fs from "node:fs";
+﻿import fs from "node:fs";
 import path from "node:path";
 import { CATEGORIES, PRODUCTS } from "@/lib/data";
 
@@ -73,7 +73,7 @@ export function isRemoteStore() {
 
 function apiKey() {
   const key = SUPABASE_SERVER_KEY || SUPABASE_PUBLIC_KEY;
-  if (!key) throw new Error("Chave do Supabase não configurada.");
+  if (!key) throw new Error("Chave do Supabase nÃ£o configurada.");
   return key;
 }
 
@@ -172,7 +172,7 @@ async function remoteRead(): Promise<Store> {
 
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`Supabase store_state indisponível (${res.status}): ${body}`);
+    throw new Error(`Supabase store_state indisponÃ­vel (${res.status}): ${body}`);
   }
 
   const rows = (await res.json()) as Array<{ data: Partial<Store> }>;
@@ -180,7 +180,7 @@ async function remoteRead(): Promise<Store> {
   if (!rows.length) {
     if (!SUPABASE_SERVER_KEY) {
       throw new Error(
-        "A tabela store_state está vazia. Configure SUPABASE_SECRET_KEY ou SUPABASE_SERVICE_ROLE_KEY para inicializar a loja.",
+        "A tabela store_state estÃ¡ vazia. Configure SUPABASE_SECRET_KEY ou SUPABASE_SERVICE_ROLE_KEY para inicializar a loja.",
       );
     }
 
@@ -204,7 +204,7 @@ async function remoteRead(): Promise<Store> {
 
     if (!createState.ok) {
       const body = await createState.text();
-      throw new Error(`Não foi possível inicializar o catálogo no Supabase (${createState.status}): ${body}`);
+      throw new Error(`NÃ£o foi possÃ­vel inicializar o catÃ¡logo no Supabase (${createState.status}): ${body}`);
     }
 
     await saveRemoteUsers(initial.users);
@@ -234,7 +234,7 @@ async function remoteRead(): Promise<Store> {
 
   if (!userRes.ok) {
     const body = await userRes.text();
-    throw new Error(`Supabase store_users indisponível (${userRes.status}): ${body}`);
+    throw new Error(`Supabase store_users indisponÃ­vel (${userRes.status}): ${body}`);
   }
 
   const userRows = (await userRes.json()) as Array<{ data: LocalUser[] }>;
@@ -247,7 +247,7 @@ async function remoteRead(): Promise<Store> {
 async function saveRemoteUsers(users: LocalUser[]) {
   if (!SUPABASE_SERVER_KEY) {
     throw new Error(
-      "Para salvar usuários no Supabase, configure SUPABASE_SECRET_KEY ou SUPABASE_SERVICE_ROLE_KEY.",
+      "Para salvar usuÃ¡rios no Supabase, configure SUPABASE_SECRET_KEY ou SUPABASE_SERVICE_ROLE_KEY.",
     );
   }
 
@@ -265,7 +265,7 @@ async function saveRemoteUsers(users: LocalUser[]) {
 
   if (!check.ok) {
     const body = await check.text();
-    throw new Error(`Não foi possível consultar os usuários do Supabase (${check.status}): ${body}`);
+    throw new Error(`NÃ£o foi possÃ­vel consultar os usuÃ¡rios do Supabase (${check.status}): ${body}`);
   }
 
   const rows = (await check.json()) as Array<{ id: number }>;
@@ -287,7 +287,7 @@ async function saveRemoteUsers(users: LocalUser[]) {
 
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`Não foi possível salvar usuários no Supabase (${res.status}): ${body}`);
+    throw new Error(`NÃ£o foi possÃ­vel salvar usuÃ¡rios no Supabase (${res.status}): ${body}`);
   }
 }
 
@@ -326,7 +326,9 @@ export async function writeStore(store: Store): Promise<void> {
 
     if (!res.ok) {
       const body = await res.text();
-      throw new Error(`Não foi possível salvar o catálogo no Supabase (${res.status}): ${body}`);
+      throw new Error(
+        `Não foi possível salvar o catálogo no Supabase (${res.status}): ${body}`,
+      );
     }
 
     await saveRemoteUsers(store.users);
@@ -338,7 +340,6 @@ export async function writeStore(store: Store): Promise<void> {
   fs.writeFileSync(tmp, JSON.stringify(store, null, 2), "utf8");
   fs.renameSync(tmp, file);
 }
-
 export function nextId(items: { id: number }[]) {
   return items.reduce((max, item) => Math.max(max, item.id), 0) + 1;
 }
@@ -354,7 +355,7 @@ export function slugify(value: string) {
 }
 
 async function ensureStorageBucket() {
-  if (!SUPABASE_SERVER_KEY) throw new Error("Chave secreta do Supabase não configurada.");
+  if (!SUPABASE_SERVER_KEY) throw new Error("Chave secreta do Supabase nÃ£o configurada.");
   const res = await fetch(`${SUPABASE_URL}/storage/v1/bucket`, {
     method: "POST",
     headers: {
@@ -367,7 +368,7 @@ async function ensureStorageBucket() {
 
   if (!res.ok && res.status !== 409) {
     const body = await res.text();
-    throw new Error(`Não foi possível preparar o armazenamento de PDFs (${res.status}): ${body}`);
+    throw new Error(`NÃ£o foi possÃ­vel preparar o armazenamento de PDFs (${res.status}): ${body}`);
   }
 }
 
@@ -401,7 +402,7 @@ export async function saveProductPdf(fileData: File, filename: string) {
 
   if (!upload.ok) {
     const body = await upload.text();
-    throw new Error(`Não foi possível enviar o PDF para o Supabase (${upload.status}): ${body}`);
+    throw new Error(`NÃ£o foi possÃ­vel enviar o PDF para o Supabase (${upload.status}): ${body}`);
   }
 
   return `${SUPABASE_URL}/storage/v1/object/public/apostilas/${encodeURIComponent(safeName)}`;
@@ -428,3 +429,7 @@ export async function removeProductPdf(pdfPath: string | null | undefined) {
     },
   });
 }
+
+
+
+
