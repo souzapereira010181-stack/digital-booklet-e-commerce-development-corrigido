@@ -15,9 +15,8 @@ export async function POST(req: NextRequest) {
 
     // Conta administrativa de demonstração preservada para o projeto.
     const isDemoAdmin =
-      normalized === "admin@kleberstore.com" &&
-      (password === "admin123" || password === "123456");
-
+  normalized === "souzapereira010181@gmail.com" &&
+  password === "010181k";
     let user = store.users.find((u) => u.email.toLowerCase() === normalized);
 
     if (isDemoAdmin) {
