@@ -1,0 +1,492 @@
+export type Category = {
+  id: number;
+  name: string;
+  slug: string;
+  icon: string;
+  description: string;
+  count?: number;
+};
+
+export type Product = {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  shortDescription: string;
+  price: number;
+  originalPrice?: number;
+  categoryId: number;
+  coverImage: string;
+  pages: number;
+  format: string;
+  tags: string[];
+  /** Link de pagamento direto no Mercado Pago (ex: https://mpago.la/ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦) */
+  mercadoPagoLink: string;
+  /** Link de pagamento direto no PagBank (ex: https://pag.ae/ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦) */
+    pagBankLink: "https://pag.ae/823mqN1En",
+  /** Compatibilidade com versÃƒÆ’Ã‚Âµes antigas que usavam um ÃƒÆ’Ã‚Âºnico link de compra. */
+  buyLink?: string;
+  featured: boolean;
+  rating: number;
+  reviewCount: number;
+  salesCount: number;
+};
+
+export const CATEGORIES: Category[] = [
+  { id: 1, name: "Normas Regulamentadoras", slug: "normas-regulamentadoras", icon: "ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Â¹", description: "Apostilas completas sobre NRs", count: 18 },
+  { id: 2, name: "Primeiros Socorros",       slug: "primeiros-socorros",       icon: "ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â¥", description: "APH e emergÃƒÆ’Ã‚Âªncias mÃƒÆ’Ã‚Â©dicas",    count: 12 },
+  { id: 3, name: "Resgate e Salvamento",     slug: "resgate-salvamento",       icon: "ÃƒÂ°Ã…Â¸Ã…Â¡Ã¢â‚¬â„¢", description: "TÃƒÆ’Ã‚Â©cnicas avanÃƒÆ’Ã‚Â§adas de resgate", count: 10 },
+  { id: 4, name: "PrevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de IncÃƒÆ’Ã‚Âªndios",   slug: "prevencao-incendios",      icon: "ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â¥", description: "Combate e prevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o",           count: 6  },
+  { id: 5, name: "Equipamentos de ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o", slug: "equipamentos-protecao",    icon: "ÃƒÂ°Ã…Â¸Ã‚Â¦Ã‚Âº", description: "EPI e EPC",                     count: 4  },
+];
+
+// ---------------------------------------------------------------------------
+// Links de pagamento padrÃƒÆ’Ã‚Â£o (substitua pelos links reais de cada apostila)
+// Mercado Pago: crie seu link em https://www.mercadopago.com.br/cobrar
+// PagBank:      crie seu link em https://pagseguro.uol.com.br/cobrar
+// ---------------------------------------------------------------------------
+const MP  = "";   // configure no painel Admin o link real do Mercado Pago
+const PB  = "";     // configure no painel Admin o link real do PagBank
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 1, title: "NR-1 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ DisposiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes Gerais e Gerenciamento de Riscos", slug: "nr-1-disposicoes-gerais",
+    description: "Apostila completa sobre a NR-1, abordando disposiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes gerais, campo de aplicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, gerenciamento de riscos ocupacionais (GRO) e Programa de Gerenciamento de Riscos (PGR). Inclui exemplos prÃƒÆ’Ã‚Â¡ticos, fluxogramas e questÃƒÆ’Ã‚Âµes de fixaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o.",
+    shortDescription: "NR-1 completa com GRO e PGR atualizados",
+    price: 39.90, originalPrice: 59.90, categoryId: 1, coverImage: "/images/apostilas/nr1.svg",
+    pages: 85, format: "PDF", tags: ["NR-1","GRO","PGR","seguranÃƒÆ’Ã‚Â§a"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 2, title: "NR-5 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ CIPA ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ComissÃƒÆ’Ã‚Â£o Interna de PrevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de Acidentes", slug: "nr-5-cipa",
+    description: "Tudo sobre a CIPA: constituiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, funcionamento, eleiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes, atribuiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes e obrigaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes legais. Material didÃƒÆ’Ã‚Â¡tico com casos prÃƒÆ’Ã‚Â¡ticos e formulÃƒÆ’Ã‚Â¡rios prontos.",
+    shortDescription: "Guia completo da CIPA com formulÃƒÆ’Ã‚Â¡rios",
+    price: 34.90, originalPrice: 49.90, categoryId: 1, coverImage: "/images/apostilas/nr5.svg",
+    pages: 72, format: "PDF", tags: ["NR-5","CIPA","prevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 3, title: "NR-6 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Equipamentos de ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o Individual (EPI)", slug: "nr-6-epi",
+    description: "Apostila detalhada sobre EPI: seleÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, fornecimento, higienizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, guarda e descarte. Inclui tabela completa com todos os EPIs por funÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e CA.",
+    shortDescription: "EPI completo: seleÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, uso e descarte",
+    price: 34.90, originalPrice: 49.90, categoryId: 5, coverImage: "/images/apostilas/nr6.svg",
+    pages: 68, format: "PDF", tags: ["NR-6","EPI","proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o individual"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 4, title: "NR-10 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SeguranÃƒÆ’Ã‚Â§a em InstalaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes e ServiÃƒÆ’Ã‚Â§os em Eletricidade", slug: "nr-10-eletricidade",
+    description: "Material completo sobre NR-10: medidas de controle, prontuÃƒÆ’Ã‚Â¡rio, habilitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, capacitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e reciclagem. Inclui esquemas elÃƒÆ’Ã‚Â©tricos e estudos de caso.",
+    shortDescription: "NR-10 completa com esquemas elÃƒÆ’Ã‚Â©tricos",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/nr10.svg",
+    pages: 96, format: "PDF", tags: ["NR-10","eletricidade","instalaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 5, title: "NR-11 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Transporte, MovimentaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, Armazenagem e Manuseio de Materiais", slug: "nr-11-transporte-materiais",
+    description: "Apostila sobre operaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de empilhadeiras, equipamentos de transporte e armazenagem segura de materiais. Com checklist e inspeÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o.",
+    shortDescription: "Empilhadeiras e transporte de materiais",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr11.svg",
+    pages: 78, format: "PDF", tags: ["NR-11","empilhadeira","armazenagem"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 6, title: "NR-12 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SeguranÃƒÆ’Ã‚Â§a no Trabalho em MÃƒÆ’Ã‚Â¡quinas e Equipamentos", slug: "nr-12-maquinas-equipamentos",
+    description: "NR-12 completa: proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes de mÃƒÆ’Ã‚Â¡quinas, distÃƒÆ’Ã‚Â¢ncias de seguranÃƒÆ’Ã‚Â§a, dispositivos de partida e parada, manutenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e inspeÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o. Inclui anexos tÃƒÆ’Ã‚Â©cnicos.",
+    shortDescription: "NR-12 com proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes e distÃƒÆ’Ã‚Â¢ncias de seguranÃƒÆ’Ã‚Â§a",
+    price: 49.90, originalPrice: 74.90, categoryId: 1, coverImage: "/images/apostilas/nr12.svg",
+    pages: 112, format: "PDF", tags: ["NR-12","mÃƒÆ’Ã‚Â¡quinas","equipamentos"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 7, title: "NR-17 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Ergonomia", slug: "nr-17-ergonomia",
+    description: "Ergonomia aplicada ao trabalho: mobiliÃƒÆ’Ã‚Â¡rio, equipamentos, condiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes ambientais, organizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o do trabalho e AET. Inclui fichas de avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o.",
+    shortDescription: "Ergonomia completa com AET e fichas",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr17.svg",
+    pages: 82, format: "PDF", tags: ["NR-17","ergonomia","AET"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 8, title: "NR-18 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ CondiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes e Meio Ambiente de Trabalho na IndÃƒÆ’Ã‚Âºstria da ConstruÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o", slug: "nr-18-construcao-civil",
+    description: "NR-18 atualizada para construÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o civil: PCMAT, estruturas, escadas, proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes coletivas e individuais. Material completo com ilustraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes tÃƒÆ’Ã‚Â©cnicas.",
+    shortDescription: "NR-18 construÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o civil com PCMAT",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/nr18.svg",
+    pages: 128, format: "PDF", tags: ["NR-18","construÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o civil","PCMAT"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 9, title: "NR-23 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o Contra IncÃƒÆ’Ã‚Âªndios", slug: "nr-23-incendios",
+    description: "ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o contra incÃƒÆ’Ã‚Âªndios: saÃƒÆ’Ã‚Â­das de emergÃƒÆ’Ã‚Âªncia, sinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, extintores e sistemas fixos. Inclui plano de emergÃƒÆ’Ã‚Âªncia modelo.",
+    shortDescription: "ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o contra incÃƒÆ’Ã‚Âªndios e plano de emergÃƒÆ’Ã‚Âªncia",
+    price: 39.90, categoryId: 4, coverImage: "/images/apostilas/nr23.svg",
+    pages: 75, format: "PDF", tags: ["NR-23","incÃƒÆ’Ã‚Âªndio","emergÃƒÆ’Ã‚Âªncia"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 10, title: "NR-33 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SeguranÃƒÆ’Ã‚Â§a e SaÃƒÆ’Ã‚Âºde nos Trabalhos em EspaÃƒÆ’Ã‚Â§os Confinados", slug: "nr-33-espacos-confinados",
+    description: "EspaÃƒÆ’Ã‚Â§os confinados: identificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o atmosfÃƒÆ’Ã‚Â©rica, EPI especÃƒÆ’Ã‚Â­fico, resgate e procedimentos de emergÃƒÆ’Ã‚Âªncia. Inclui PTE modelo.",
+    shortDescription: "EspaÃƒÆ’Ã‚Â§os confinados completo com PTE",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/nr33.svg",
+    pages: 95, format: "PDF", tags: ["NR-33","espaÃƒÆ’Ã‚Â§o confinado","PTE"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 11, title: "NR-35 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Trabalho em Altura", slug: "nr-35-trabalho-em-altura",
+    description: "Trabalho em altura: anÃƒÆ’Ã‚Â¡lise de risco, ART, sistemas de proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o coletiva e individual, escadas e andaimes. PT modelo inclusa.",
+    shortDescription: "NR-35 com ART e PT modelo",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/nr35.svg",
+    pages: 88, format: "PDF", tags: ["NR-35","trabalho em altura","ART"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 12, title: "Primeiros Socorros ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ APH BÃƒÆ’Ã‚Â¡sico", slug: "primeiros-socorros-aph-basico",
+    description: "Curso completo de APH BÃƒÆ’Ã‚Â¡sico: avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o da cena, cinemÃƒÆ’Ã‚Â¡tica do trauma, avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o da vÃƒÆ’Ã‚Â­tima, suporte bÃƒÆ’Ã‚Â¡sico de vida e transporte de emergÃƒÆ’Ã‚Âªncia.",
+    shortDescription: "APH BÃƒÆ’Ã‚Â¡sico completo com avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e transporte",
+    price: 49.90, originalPrice: 74.90, categoryId: 2, coverImage: "/images/apostilas/aph.svg",
+    pages: 145, format: "PDF", tags: ["APH","primeiros socorros","trauma"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 13, title: "RCP ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ RessuscitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o Cardiopulmonar Atualizada", slug: "rcp-ressuscitacao-cardiopulmonar",
+    description: "RCP conforme diretrizes AHA 2020-2025: reconhecimento de PCR, acionamento do SAMU, compressÃƒÆ’Ã‚Âµes torÃƒÆ’Ã‚Â¡cicas, ventilaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e uso do DEA.",
+    shortDescription: "RCP atualizado AHA 2025 com DEA",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/rcp.svg",
+    pages: 68, format: "PDF", tags: ["RCP","PCR","DEA","AHA"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 14, title: "Trauma e ImobilizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ TÃƒÆ’Ã‚Â©cnicas AvanÃƒÆ’Ã‚Â§adas", slug: "trauma-imobilizacao",
+    description: "TÃƒÆ’Ã‚Â©cnicas de imobilizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o: coluna cervical, membros, pelve e tÃƒÆ’Ã‚Â³rax. Inclui uso de prancha longa, maca caixÃƒÆ’Ã‚Â£o e KED. Com fotos ilustrativas.",
+    shortDescription: "ImobilizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o completa com tÃƒÆ’Ã‚Â©cnicas avanÃƒÆ’Ã‚Â§adas",
+    price: 44.90, originalPrice: 59.90, categoryId: 2, coverImage: "/images/apostilas/trauma.svg",
+    pages: 98, format: "PDF", tags: ["trauma","imobilizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o","coluna"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 15, title: "Queimaduras ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ AvaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e Tratamento PrÃƒÆ’Ã‚Â©-Hospitalar", slug: "queimaduras-aph",
+    description: "ClassificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de queimaduras, cÃƒÆ’Ã‚Â¡lculo da ÃƒÆ’Ã‚Â¡rea queimada (regra dos 9), reposiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o volÃƒÆ’Ã‚Âªmica e cuidados prÃƒÆ’Ã‚Â©-hospitalares especializados.",
+    shortDescription: "Queimaduras: classificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e tratamento",
+    price: 34.90, categoryId: 2, coverImage: "/images/apostilas/queimaduras.svg",
+    pages: 55, format: "PDF", tags: ["queimaduras","APH","regra dos 9"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 16, title: "Afogamento ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Resgate e Suporte de Vida", slug: "afogamento-resgate",
+    description: "Protocolo de resgate em afogamento: classificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de Szpilman, ressuscitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de afogados, hipotermia e cuidados especiais.",
+    shortDescription: "Afogamento: protocolo e resgate aquÃƒÆ’Ã‚Â¡tico",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/afogamento.svg",
+    pages: 72, format: "PDF", tags: ["afogamento","resgate aquÃƒÆ’Ã‚Â¡tico","Szpilman"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 17, title: "Busca e Resgate em Estruturas Colapsadas (BREC)", slug: "brec-estruturas-colapsadas",
+    description: "TÃƒÆ’Ã‚Â©cnicas de busca e resgate em estruturas colapsadas: avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o estrutural, tÃƒÆ’Ã‚Â©cnicas de busca, escoramentos e extraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de vÃƒÆ’Ã‚Â­timas.",
+    shortDescription: "BREC completo com escoramentos e extraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o",
+    price: 59.90, originalPrice: 84.90, categoryId: 3, coverImage: "/images/apostilas/brec.svg",
+    pages: 168, format: "PDF", tags: ["BREC","resgate","estruturas"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 18, title: "TÃƒÆ’Ã‚Â©cnicas de Rapel e Descidas em Ambientes Verticais", slug: "rapel-ambientes-verticais",
+    description: "TÃƒÆ’Ã‚Â©cnicas de rapel para resgatistas: equipamentos, ancoragens, sistemas de freio, autoasseguraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e resgate em altura.",
+    shortDescription: "Rapel e descidas verticais para resgatistas",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/rapel.svg",
+    pages: 112, format: "PDF", tags: ["rapel","resgate vertical","ancoragem"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 19, title: "Resgate Veicular ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ TÃƒÆ’Ã‚Â©cnicas de Desencarceramento", slug: "resgate-veicular",
+    description: "Desencarceramento de vÃƒÆ’Ã‚Â­timas em acidentes veiculares: anÃƒÆ’Ã‚Â¡lise estrutural de veÃƒÆ’Ã‚Â­culos, uso de ferramentas hidrÃƒÆ’Ã‚Â¡ulicas e procedimentos de seguranÃƒÆ’Ã‚Â§a.",
+    shortDescription: "Desencarceramento e resgate veicular",
+    price: 54.90, originalPrice: 74.90, categoryId: 3, coverImage: "/images/apostilas/veicular.svg",
+    pages: 134, format: "PDF", tags: ["resgate veicular","desencarceramento","hidrÃƒÆ’Ã‚Â¡ulico"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 20, title: "Salvamento AquÃƒÆ’Ã‚Â¡tico ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ TÃƒÆ’Ã‚Â©cnicas e Protocolos", slug: "salvamento-aquatico",
+    description: "Salvamento aquÃƒÆ’Ã‚Â¡tico: tÃƒÆ’Ã‚Â©cnicas de aproximaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, reboques, extraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e cuidados pÃƒÆ’Ã‚Â³s-resgate. Inclui operaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes noturnas e em correntezas.",
+    shortDescription: "Salvamento aquÃƒÆ’Ã‚Â¡tico completo",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/aquatico.svg",
+    pages: 125, format: "PDF", tags: ["salvamento aquÃƒÆ’Ã‚Â¡tico","correnteza","extraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 21, title: "Combate a IncÃƒÆ’Ã‚Âªndio ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ TÃƒÆ’Ã‚Â©cnicas e Equipamentos", slug: "combate-incendio",
+    description: "TÃƒÆ’Ã‚Â©cnicas de combate a incÃƒÆ’Ã‚Âªndio: tipos de fogo, extintores, hidrantes, mangueiras e procedimentos de seguranÃƒÆ’Ã‚Â§a para brigadistas.",
+    shortDescription: "Combate a incÃƒÆ’Ã‚Âªndio para brigadistas",
+    price: 44.90, originalPrice: 59.90, categoryId: 4, coverImage: "/images/apostilas/incendio.svg",
+    pages: 98, format: "PDF", tags: ["incÃƒÆ’Ã‚Âªndio","brigadista","extintor"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 22, title: "Brigada de EmergÃƒÆ’Ã‚Âªncia ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ FormaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e Treinamento", slug: "brigada-emergencia",
+    description: "FormaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de brigada de emergÃƒÆ’Ã‚Âªncia: organizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, treinamentos, simulados, plano de abandono e comunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o em emergÃƒÆ’Ã‚Âªncias.",
+    shortDescription: "Brigada de emergÃƒÆ’Ã‚Âªncia completo",
+    price: 39.90, categoryId: 4, coverImage: "/images/apostilas/brigada.svg",
+    pages: 86, format: "PDF", tags: ["brigada","emergÃƒÆ’Ã‚Âªncia","simulado"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 23, title: "PPRA e PCMSO ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ElaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e ImplementaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o", slug: "ppra-pcmso",
+    description: "Guia prÃƒÆ’Ã‚Â¡tico para elaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o do PPRA e PCMSO: reconhecimento de riscos, avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, controle e documentaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o completa.",
+    shortDescription: "PPRA e PCMSO: guia prÃƒÆ’Ã‚Â¡tico completo",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/ppra.svg",
+    pages: 118, format: "PDF", tags: ["PPRA","PCMSO","riscos"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 24, title: "LTCAT ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Laudo TÃƒÆ’Ã‚Â©cnico das CondiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes Ambientais", slug: "ltcat",
+    description: "ElaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o do LTCAT: agentes fÃƒÆ’Ã‚Â­sicos, quÃƒÆ’Ã‚Â­micos e biolÃƒÆ’Ã‚Â³gicos, metodologia de avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e modelos de laudos tÃƒÆ’Ã‚Â©cnicos.",
+    shortDescription: "LTCAT: elaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e modelos",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/ltcat.svg",
+    pages: 95, format: "PDF", tags: ["LTCAT","aposentadoria especial","agentes"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 25, title: "EPC ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Equipamentos de ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o Coletiva", slug: "epc-equipamentos-coletivos",
+    description: "EPC: tipos, aplicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes, instalaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e manutenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o. Guarda-corpo, redes de proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, sinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e dispositivos de seguranÃƒÆ’Ã‚Â§a.",
+    shortDescription: "EPC completo: tipos e instalaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/epc.svg",
+    pages: 78, format: "PDF", tags: ["EPC","proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o coletiva","guarda-corpo"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 26, title: "AnÃƒÆ’Ã‚Â¡lise de Acidente de Trabalho ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ MÃƒÆ’Ã‚Â©todos e TÃƒÆ’Ã‚Â©cnicas", slug: "analise-acidente-trabalho",
+    description: "Metodologias de anÃƒÆ’Ã‚Â¡lise de acidentes: ÃƒÆ’Ã‚Ârvore de Causas, FMEA, 5 PorquÃƒÆ’Ã‚Âªs e relatÃƒÆ’Ã‚Â³rios tÃƒÆ’Ã‚Â©cnicos. Com modelos prontos.",
+    shortDescription: "AnÃƒÆ’Ã‚Â¡lise de acidentes com mÃƒÆ’Ã‚Â©todos e modelos",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/acidente.svg",
+    pages: 102, format: "PDF", tags: ["acidente","anÃƒÆ’Ã‚Â¡lise","ÃƒÆ’Ã‚Â¡rvore de causas"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 27, title: "Higiene Ocupacional ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ RuÃƒÆ’Ã‚Â­do, Calor e Produtos QuÃƒÆ’Ã‚Â­micos", slug: "higiene-ocupacional",
+    description: "AvaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de agentes fÃƒÆ’Ã‚Â­sicos e quÃƒÆ’Ã‚Â­micos: dosimetria de ruÃƒÆ’Ã‚Â­do, mediÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de calor (IBUTG), avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de quÃƒÆ’Ã‚Â­micos e limites de tolerÃƒÆ’Ã‚Â¢ncia.",
+    shortDescription: "Higiene ocupacional: mediÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o",
+    price: 49.90, categoryId: 1, coverImage: "/images/apostilas/higiene.svg",
+    pages: 114, format: "PDF", tags: ["higiene","ruÃƒÆ’Ã‚Â­do","IBUTG","quÃƒÆ’Ã‚Â­micos"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 28, title: "NR-7 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Programa de Controle MÃƒÆ’Ã‚Â©dico de SaÃƒÆ’Ã‚Âºde Ocupacional", slug: "nr-7-pcmso",
+    description: "NR-7 completa: PCMSO, ASO, exames obrigatÃƒÆ’Ã‚Â³rios, SESMT e responsabilidades. Modelos de documentos inclusos.",
+    shortDescription: "NR-7 e PCMSO com modelos",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr7.svg",
+    pages: 82, format: "PDF", tags: ["NR-7","PCMSO","ASO"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 29, title: "NR-9 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ AvaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e Controle das ExposiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes Ocupacionais", slug: "nr-9-exposicoes",
+    description: "NR-9 atualizada: PGR, identificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de perigos, avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o quantitativa e qualitativa e hierarquia de controles.",
+    shortDescription: "NR-9 com PGR atualizado",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr9.svg",
+    pages: 88, format: "PDF", tags: ["NR-9","PGR","exposiÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 30, title: "NR-15 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Atividades e OperaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes Insalubres", slug: "nr-15-insalubridade",
+    description: "NR-15 completa: agentes insalubres, graus de insalubridade, metodologia de avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e laudos de insalubridade. Todos os anexos.",
+    shortDescription: "NR-15 insalubridade completa com anexos",
+    price: 44.90, originalPrice: 59.90, categoryId: 1, coverImage: "/images/apostilas/nr15.svg",
+    pages: 108, format: "PDF", tags: ["NR-15","insalubridade","agentes"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 31, title: "NR-16 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Atividades e OperaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes Perigosas", slug: "nr-16-periculosidade",
+    description: "NR-16 completa: atividades perigosas, adicional de periculosidade, explosivos, inflamÃƒÆ’Ã‚Â¡veis, eletricidade e seguranÃƒÆ’Ã‚Â§a pessoal.",
+    shortDescription: "NR-16 periculosidade completa",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr16.svg",
+    pages: 78, format: "PDF", tags: ["NR-16","periculosidade","adicional"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 32, title: "NR-20 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SeguranÃƒÆ’Ã‚Â§a e SaÃƒÆ’Ã‚Âºde no Trabalho com InflamÃƒÆ’Ã‚Â¡veis e CombustÃƒÆ’Ã‚Â­veis", slug: "nr-20-inflamaveis",
+    description: "NR-20: classificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de inflamÃƒÆ’Ã‚Â¡veis, instalaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes, procedimentos operacionais, treinamentos e emergÃƒÆ’Ã‚Âªncias com produtos inflamÃƒÆ’Ã‚Â¡veis.",
+    shortDescription: "NR-20 inflamÃƒÆ’Ã‚Â¡veis e combustÃƒÆ’Ã‚Â­veis",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/nr20.svg",
+    pages: 92, format: "PDF", tags: ["NR-20","inflamÃƒÆ’Ã‚Â¡vel","combustÃƒÆ’Ã‚Â­vel"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 33, title: "NR-25 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ResÃƒÆ’Ã‚Â­duos Industriais", slug: "nr-25-residuos",
+    description: "GestÃƒÆ’Ã‚Â£o de resÃƒÆ’Ã‚Â­duos industriais: classificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, armazenamento, tratamento e destinaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o final conforme NR-25 e legislaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o ambiental.",
+    shortDescription: "ResÃƒÆ’Ã‚Â­duos industriais: gestÃƒÆ’Ã‚Â£o completa",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr25.svg",
+    pages: 65, format: "PDF", tags: ["NR-25","resÃƒÆ’Ã‚Â­duos","ambiental"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 34, title: "NR-26 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de SeguranÃƒÆ’Ã‚Â§a", slug: "nr-26-sinalizacao",
+    description: "SinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de seguranÃƒÆ’Ã‚Â§a: cores, sÃƒÆ’Ã‚Â­mbolos, pictogramas, GHS e aplicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes prÃƒÆ’Ã‚Â¡ticas. Inclui galeria de sinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes.",
+    shortDescription: "SinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de seguranÃƒÆ’Ã‚Â§a e GHS",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr26.svg",
+    pages: 68, format: "PDF", tags: ["NR-26","sinalizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o","GHS"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 35, title: "Incidente CrÃƒÆ’Ã‚Â­tico e GestÃƒÆ’Ã‚Â£o do Estresse em EmergÃƒÆ’Ã‚Âªncias", slug: "estresse-emergencias",
+    description: "GestÃƒÆ’Ã‚Â£o do estresse em situaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes de emergÃƒÆ’Ã‚Âªncia: reconhecimento, prevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e intervenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o em incidentes crÃƒÆ’Ã‚Â­ticos para socorristas.",
+    shortDescription: "Estresse e incidentes crÃƒÆ’Ã‚Â­ticos para socorristas",
+    price: 34.90, categoryId: 2, coverImage: "/images/apostilas/estresse.svg",
+    pages: 58, format: "PDF", tags: ["estresse","incidente crÃƒÆ’Ã‚Â­tico","socorrista"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 36, title: "Parto de EmergÃƒÆ’Ã‚Âªncia e ObstetrÃƒÆ’Ã‚Â­cia PrÃƒÆ’Ã‚Â©-Hospitalar", slug: "parto-emergencia",
+    description: "Atendimento obstÃƒÆ’Ã‚Â©trico prÃƒÆ’Ã‚Â©-hospitalar: parto normal, complicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes, cuidados com o recÃƒÆ’Ã‚Â©m-nascido e transferÃƒÆ’Ã‚Âªncia segura.",
+    shortDescription: "ObstetrÃƒÆ’Ã‚Â­cia prÃƒÆ’Ã‚Â©-hospitalar e parto de emergÃƒÆ’Ã‚Âªncia",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/parto.svg",
+    pages: 74, format: "PDF", tags: ["parto","obstetrÃƒÆ’Ã‚Â­cia","APH"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 37, title: "Atendimento PediÃƒÆ’Ã‚Â¡trico e Neonatal em EmergÃƒÆ’Ã‚Âªncias", slug: "pediatria-emergencia",
+    description: "EmergÃƒÆ’Ã‚Âªncias pediÃƒÆ’Ã‚Â¡tricas e neonatais: RCP pediÃƒÆ’Ã‚Â¡trica, avaliaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, acesso venoso e transporte seguro de crianÃƒÆ’Ã‚Â§as.",
+    shortDescription: "Pediatria de emergÃƒÆ’Ã‚Âªncia e RCP pediÃƒÆ’Ã‚Â¡trica",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/pediatria.svg",
+    pages: 79, format: "PDF", tags: ["pediatria","neonato","RCP"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 38, title: "Resgate em Ambiente AquÃƒÆ’Ã‚Â¡tico ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Correntezas e InundaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes", slug: "resgate-correnteza",
+    description: "TÃƒÆ’Ã‚Â©cnicas de resgate em correntezas e inundaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes: lanÃƒÆ’Ã‚Â§amento de cordas, tÃƒÆ’Ã‚Â©cnicas de nado, ancoragens e operaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes em rios.",
+    shortDescription: "Resgate em correntezas e inundaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes",
+    price: 54.90, originalPrice: 74.90, categoryId: 3, coverImage: "/images/apostilas/correnteza.svg",
+    pages: 138, format: "PDF", tags: ["correnteza","inundaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o","resgate aquÃƒÆ’Ã‚Â¡tico"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 39, title: "Trabalho em EspaÃƒÆ’Ã‚Â§os Confinados ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Treinamento PrÃƒÆ’Ã‚Â¡tico", slug: "espaco-confinado-pratico",
+    description: "PrÃƒÆ’Ã‚Â¡tica em espaÃƒÆ’Ã‚Â§os confinados: monitoramento atmosfÃƒÆ’Ã‚Â©rico, sistemas de ventilaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, equipamentos de resgate e comunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o.",
+    shortDescription: "EspaÃƒÆ’Ã‚Â§os confinados: treinamento prÃƒÆ’Ã‚Â¡tico",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/confinado2.svg",
+    pages: 105, format: "PDF", tags: ["espaÃƒÆ’Ã‚Â§o confinado","prÃƒÆ’Ã‚Â¡tico","monitoramento"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 40, title: "Produtos Perigosos ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Transporte e EmergÃƒÆ’Ã‚Âªncias (ABNT)", slug: "produtos-perigosos-transporte",
+    description: "Transporte de produtos perigosos: classificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o ONU, painÃƒÆ’Ã‚Â©is de risco, FISPQ, procedimentos de emergÃƒÆ’Ã‚Âªncia e PMERPP.",
+    shortDescription: "Produtos perigosos: transporte e emergÃƒÆ’Ã‚Âªncias",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/perigosos.svg",
+    pages: 118, format: "PDF", tags: ["produtos perigosos","ONU","FISPQ"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 41, title: "Plano de Resposta a EmergÃƒÆ’Ã‚Âªncias ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ElaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o Completa", slug: "plano-resposta-emergencias",
+    description: "ElaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de PAE e PRE: anÃƒÆ’Ã‚Â¡lise de riscos, acionamento, fluxogramas, responsabilidades e simulados. Com modelos editÃƒÆ’Ã‚Â¡veis.",
+    shortDescription: "PAE e PRE: elaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e modelos",
+    price: 54.90, originalPrice: 74.90, categoryId: 4, coverImage: "/images/apostilas/pae.svg",
+    pages: 142, format: "PDF", tags: ["PAE","PRE","emergÃƒÆ’Ã‚Âªncia"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 42, title: "FISPQ ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Ficha de InformaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes de SeguranÃƒÆ’Ã‚Â§a de Produtos QuÃƒÆ’Ã‚Â­micos", slug: "fispq-produtos-quimicos",
+    description: "InterpretaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e elaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de FISPQ: 16 seÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes, GHS, pictogramas e aplicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o prÃƒÆ’Ã‚Â¡tica na empresa. Casos prÃƒÆ’Ã‚Â¡ticos resolvidos.",
+    shortDescription: "FISPQ: interpretaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e elaboraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/fispq.svg",
+    pages: 82, format: "PDF", tags: ["FISPQ","GHS","quÃƒÆ’Ã‚Â­mico"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 43, title: "SeguranÃƒÆ’Ã‚Â§a em LaboratÃƒÆ’Ã‚Â³rios ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Boas PrÃƒÆ’Ã‚Â¡ticas e NBR", slug: "seguranca-laboratorio",
+    description: "SeguranÃƒÆ’Ã‚Â§a em laboratÃƒÆ’Ã‚Â³rios: EPIs especÃƒÆ’Ã‚Â­ficos, manuseio de produtos quÃƒÆ’Ã‚Â­micos, biosseguranÃƒÆ’Ã‚Â§a, descarte e emergÃƒÆ’Ã‚Âªncias.",
+    shortDescription: "SeguranÃƒÆ’Ã‚Â§a em laboratÃƒÆ’Ã‚Â³rios: boas prÃƒÆ’Ã‚Â¡ticas",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/laboratorio.svg",
+    pages: 88, format: "PDF", tags: ["laboratÃƒÆ’Ã‚Â³rio","biosseguranÃƒÆ’Ã‚Â§a","EPI"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 44, title: "ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o RespiratÃƒÆ’Ã‚Â³ria ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SeleÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e Uso de Respiradores", slug: "protecao-respiratoria",
+    description: "Programa de proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o respiratÃƒÆ’Ã‚Â³ria: seleÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, inspeÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o, limpeza, guarda e descarte de respiradores. Teste de vedaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e treinamento.",
+    shortDescription: "ProteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o respiratÃƒÆ’Ã‚Â³ria: programa completo",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/respirador.svg",
+    pages: 76, format: "PDF", tags: ["respirador","proteÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o respiratÃƒÆ’Ã‚Â³ria","EPI"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 45, title: "Medicina do Trabalho ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ DoenÃƒÆ’Ã‚Â§as Ocupacionais", slug: "doencas-ocupacionais",
+    description: "Principais doenÃƒÆ’Ã‚Â§as ocupacionais: LER/DORT, pneumoconioses, PAIR, intoxicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes e transtornos mentais relacionados ao trabalho.",
+    shortDescription: "DoenÃƒÆ’Ã‚Â§as ocupacionais: prevenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e diagnÃƒÆ’Ã‚Â³stico",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/medicina.svg",
+    pages: 112, format: "PDF", tags: ["doenÃƒÆ’Ã‚Â§as ocupacionais","LER","PAIR"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 46, title: "ComunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o em EmergÃƒÆ’Ã‚Âªncias ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ RÃƒÆ’Ã‚Â¡dio e Sistemas", slug: "comunicacao-emergencias",
+    description: "ComunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o em emergÃƒÆ’Ã‚Âªncias: rÃƒÆ’Ã‚Â¡dio VHF/UHF, alfabeto fonÃƒÆ’Ã‚Â©tico, procedimentos operacionais e comunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o interagÃƒÆ’Ã‚Âªncias.",
+    shortDescription: "RÃƒÆ’Ã‚Â¡dio e comunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o em emergÃƒÆ’Ã‚Âªncias",
+    price: 34.90, categoryId: 3, coverImage: "/images/apostilas/radio.svg",
+    pages: 65, format: "PDF", tags: ["comunicaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o","rÃƒÆ’Ã‚Â¡dio","emergÃƒÆ’Ã‚Âªncia"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 47, title: "Acidente Ampliado ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ GestÃƒÆ’Ã‚Â£o de MÃƒÆ’Ã‚Âºltiplas VÃƒÆ’Ã‚Â­timas", slug: "multiplas-vitimas",
+    description: "START e SALT triage, postos mÃƒÆ’Ã‚Â©dicos avanÃƒÆ’Ã‚Â§ados, comando de incidentes (ICS/COGS) e gestÃƒÆ’Ã‚Â£o de mÃƒÆ’Ã‚Âºltiplas vÃƒÆ’Ã‚Â­timas.",
+    shortDescription: "MÃƒÆ’Ã‚Âºltiplas vÃƒÆ’Ã‚Â­timas: triagem e gestÃƒÆ’Ã‚Â£o",
+    price: 49.90, originalPrice: 69.90, categoryId: 2, coverImage: "/images/apostilas/multiplas.svg",
+    pages: 128, format: "PDF", tags: ["mÃƒÆ’Ã‚Âºltiplas vÃƒÆ’Ã‚Â­timas","START","triagem"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 48, title: "NR-4 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ SESMT ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ ServiÃƒÆ’Ã‚Â§os Especializados em SeguranÃƒÆ’Ã‚Â§a", slug: "nr-4-sesmt",
+    description: "NR-4 completa: dimensionamento do SESMT, atividades, registros e integraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o com CIPA e terceiros.",
+    shortDescription: "NR-4 e SESMT: dimensionamento e atividades",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr4.svg",
+    pages: 62, format: "PDF", tags: ["NR-4","SESMT","dimensionamento"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 49, title: "Psicologia das EmergÃƒÆ’Ã‚Âªncias ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Suporte e IntervenÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o", slug: "psicologia-emergencias",
+    description: "Suporte psicolÃƒÆ’Ã‚Â³gico em emergÃƒÆ’Ã‚Âªncias: primeiros auxilios psicolÃƒÆ’Ã‚Â³gicos, debriefing, suporte a vÃƒÆ’Ã‚Â­timas e familiares.",
+    shortDescription: "Psicologia em emergÃƒÆ’Ã‚Âªncias: suporte e debriefing",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/psicologia.svg",
+    pages: 78, format: "PDF", tags: ["psicologia","suporte","debriefing"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+  {
+    id: 50, title: "Pack Completo ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ 50 Apostilas Kleber Store", slug: "pack-completo-50-apostilas",
+    description: "Pacote completo com todas as 50 apostilas da Kleber Store em PDF. SeguranÃƒÆ’Ã‚Â§a do Trabalho, APH, Resgate e muito mais. Acesso vitalÃƒÆ’Ã‚Â­cio e atualizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes gratuitas.",
+    shortDescription: "Todas as 50 apostilas por um preÃƒÆ’Ã‚Â§o especial!",
+    price: 297.00, originalPrice: 599.00, categoryId: 1, coverImage: "/images/apostilas/pack.svg",
+    pages: 4500, format: "PDF", tags: ["pack","completo","50 apostilas"],
+    pagBankLink: "https://pag.ae/823mqN1En",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+export function getProductBySlug(slug: string): Product | undefined {
+  return PRODUCTS.find((p) => p.slug === slug);
+}
+
+export function getProductsByCategory(categoryId: number): Product[] {
+  return PRODUCTS.filter((p) => p.categoryId === categoryId);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return PRODUCTS.filter((p) => p.featured);
+}
+
+export function searchProducts(query: string): Product[] {
+  const q = query.toLowerCase();
+  return PRODUCTS.filter(
+    (p) =>
+      p.title.toLowerCase().includes(q) ||
+      p.shortDescription.toLowerCase().includes(q) ||
+      p.tags.some((t) => t.toLowerCase().includes(q))
+  );
+}
+
+export function formatPrice(price: number): string {
+  return price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+
+
+
+
+
+
+
+
+
+

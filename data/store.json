@@ -54,7 +54,7 @@
     {
       "id": 1,
       "title": "NR-1 – Disposições Gerais e Gerenciamento de Riscos",
-      "slug": "nr-1-disposicoes-gerais",
+      "slug": "nr-1-disposicoes-gerais-e-gerenciamento-de-riscos",
       "description": "Apostila completa sobre a NR-1, abordando disposições gerais, campo de aplicação, gerenciamento de riscos ocupacionais (GRO) e Programa de Gerenciamento de Riscos (PGR). Inclui exemplos práticos, fluxogramas e questões de fixação.",
       "shortDescription": "Apostila completa sobre a NR-1, abordando disposições gerais, campo de aplicação, gerenciamento de riscos ocupacionais (GRO) e Programa de Gerenciamento de Risc",
       "price": 39.9,
@@ -136,7 +136,7 @@
     {
       "id": 4,
       "title": "NR-10 – Segurança em Instalações e Serviços em Eletricidade",
-      "slug": "nr-10-seguranca-em-instalacoes-e-servicos-em-eletricidade",
+      "slug": "nr-10-eletricidade",
       "description": "Material completo sobre NR-10: medidas de controle, prontuário, habilitação, capacitação e reciclagem. Inclui esquemas elétricos e estudos de caso.",
       "shortDescription": "Material completo sobre NR-10: medidas de controle, prontuário, habilitação, capacitação e reciclagem. Inclui esquemas elétricos e estudos de caso.",
       "price": 100,

@@ -1,0 +1,485 @@
+﻿export type Category = {
+  id: number;
+  name: string;
+  slug: string;
+  icon: string;
+  description: string;
+  count?: number;
+};
+
+export type Product = {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  shortDescription: string;
+  price: number;
+  originalPrice?: number;
+  categoryId: number;
+  coverImage: string;
+  pages: number;
+  format: string;
+  tags: string[];
+  /** Link de pagamento direto no Mercado Pago (ex: https://mpago.la/Ã¢â‚¬Â¦) */
+  mercadoPagoLink: string;
+  /** Link de pagamento direto no PagBank (ex: https://pag.ae/Ã¢â‚¬Â¦) */
+  pagBankLink: string;
+  /** Compatibilidade com versÃƒÂµes antigas que usavam um ÃƒÂºnico link de compra. */
+  buyLink?: string;
+  featured: boolean;
+  rating: number;
+  reviewCount: number;
+  salesCount: number;
+};
+
+export const CATEGORIES: Category[] = [
+  { id: 1, name: "Normas Regulamentadoras", slug: "normas-regulamentadoras", icon: "Ã°Å¸â€œâ€¹", description: "Apostilas completas sobre NRs", count: 18 },
+  { id: 2, name: "Primeiros Socorros",       slug: "primeiros-socorros",       icon: "Ã°Å¸ÂÂ¥", description: "APH e emergÃƒÂªncias mÃƒÂ©dicas",    count: 12 },
+  { id: 3, name: "Resgate e Salvamento",     slug: "resgate-salvamento",       icon: "Ã°Å¸Å¡â€™", description: "TÃƒÂ©cnicas avanÃƒÂ§adas de resgate", count: 10 },
+  { id: 4, name: "PrevenÃƒÂ§ÃƒÂ£o de IncÃƒÂªndios",   slug: "prevencao-incendios",      icon: "Ã°Å¸â€Â¥", description: "Combate e prevenÃƒÂ§ÃƒÂ£o",           count: 6  },
+  { id: 5, name: "Equipamentos de ProteÃƒÂ§ÃƒÂ£o", slug: "equipamentos-protecao",    icon: "Ã°Å¸Â¦Âº", description: "EPI e EPC",                     count: 4  },
+];
+
+// ---------------------------------------------------------------------------
+// Links de pagamento padrÃƒÂ£o (substitua pelos links reais de cada apostila)
+// Mercado Pago: crie seu link em https://www.mercadopago.com.br/cobrar
+// PagBank:      crie seu link em https://pagseguro.uol.com.br/cobrar
+// ---------------------------------------------------------------------------
+const MP  = "";   // configure no painel Admin o link real do Mercado Pago
+const PB = "https://pag.ae/823mqN1En";
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 1, title: "NR-1 Ã¢â‚¬â€œ DisposiÃƒÂ§ÃƒÂµes Gerais e Gerenciamento de Riscos", slug: "nr-1-disposicoes-gerais",
+    description: "Apostila completa sobre a NR-1, abordando disposiÃƒÂ§ÃƒÂµes gerais, campo de aplicaÃƒÂ§ÃƒÂ£o, gerenciamento de riscos ocupacionais (GRO) e Programa de Gerenciamento de Riscos (PGR). Inclui exemplos prÃƒÂ¡ticos, fluxogramas e questÃƒÂµes de fixaÃƒÂ§ÃƒÂ£o.",
+    shortDescription: "NR-1 completa com GRO e PGR atualizados",
+    price: 39.90, originalPrice: 59.90, categoryId: 1, coverImage: "/images/apostilas/nr1.svg",
+    pages: 85, format: "PDF", tags: ["NR-1","GRO","PGR","seguranÃƒÂ§a"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 127, salesCount: 843,
+  },
+  {
+    id: 2, title: "NR-5 Ã¢â‚¬â€œ CIPA Ã¢â‚¬â€œ ComissÃƒÂ£o Interna de PrevenÃƒÂ§ÃƒÂ£o de Acidentes", slug: "nr-5-cipa",
+    description: "Tudo sobre a CIPA: constituiÃƒÂ§ÃƒÂ£o, funcionamento, eleiÃƒÂ§ÃƒÂµes, atribuiÃƒÂ§ÃƒÂµes e obrigaÃƒÂ§ÃƒÂµes legais. Material didÃƒÂ¡tico com casos prÃƒÂ¡ticos e formulÃƒÂ¡rios prontos.",
+    shortDescription: "Guia completo da CIPA com formulÃƒÂ¡rios",
+    price: 34.90, originalPrice: 49.90, categoryId: 1, coverImage: "/images/apostilas/nr5.svg",
+    pages: 72, format: "PDF", tags: ["NR-5","CIPA","prevenÃƒÂ§ÃƒÂ£o"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 89, salesCount: 412,
+  },
+  {
+    id: 3, title: "NR-6 Ã¢â‚¬â€œ Equipamentos de ProteÃƒÂ§ÃƒÂ£o Individual (EPI)", slug: "nr-6-epi",
+    description: "Apostila detalhada sobre EPI: seleÃƒÂ§ÃƒÂ£o, fornecimento, higienizaÃƒÂ§ÃƒÂ£o, guarda e descarte. Inclui tabela completa com todos os EPIs por funÃƒÂ§ÃƒÂ£o e CA.",
+    shortDescription: "EPI completo: seleÃƒÂ§ÃƒÂ£o, uso e descarte",
+    price: 34.90, originalPrice: 49.90, categoryId: 5, coverImage: "/images/apostilas/nr6.svg",
+    pages: 68, format: "PDF", tags: ["NR-6","EPI","proteÃƒÂ§ÃƒÂ£o individual"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 95, salesCount: 528,
+  },
+  {
+    id: 4, title: "NR-10 Ã¢â‚¬â€œ SeguranÃƒÂ§a em InstalaÃƒÂ§ÃƒÂµes e ServiÃƒÂ§os em Eletricidade", slug: "nr-10-eletricidade",
+    description: "Material completo sobre NR-10: medidas de controle, prontuÃƒÂ¡rio, habilitaÃƒÂ§ÃƒÂ£o, capacitaÃƒÂ§ÃƒÂ£o e reciclagem. Inclui esquemas elÃƒÂ©tricos e estudos de caso.",
+    shortDescription: "NR-10 completa com esquemas elÃƒÂ©tricos",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/nr10.svg",
+    pages: 96, format: "PDF", tags: ["NR-10","eletricidade","instalaÃƒÂ§ÃƒÂµes"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 203, salesCount: 1204,
+  },
+  {
+    id: 5, title: "NR-11 Ã¢â‚¬â€œ Transporte, MovimentaÃƒÂ§ÃƒÂ£o, Armazenagem e Manuseio de Materiais", slug: "nr-11-transporte-materiais",
+    description: "Apostila sobre operaÃƒÂ§ÃƒÂ£o de empilhadeiras, equipamentos de transporte e armazenagem segura de materiais. Com checklist e inspeÃƒÂ§ÃƒÂ£o.",
+    shortDescription: "Empilhadeiras e transporte de materiais",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr11.svg",
+    pages: 78, format: "PDF", tags: ["NR-11","empilhadeira","armazenagem"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 67, salesCount: 298,
+  },
+  {
+    id: 6, title: "NR-12 Ã¢â‚¬â€œ SeguranÃƒÂ§a no Trabalho em MÃƒÂ¡quinas e Equipamentos", slug: "nr-12-maquinas-equipamentos",
+    description: "NR-12 completa: proteÃƒÂ§ÃƒÂµes de mÃƒÂ¡quinas, distÃƒÂ¢ncias de seguranÃƒÂ§a, dispositivos de partida e parada, manutenÃƒÂ§ÃƒÂ£o e inspeÃƒÂ§ÃƒÂ£o. Inclui anexos tÃƒÂ©cnicos.",
+    shortDescription: "NR-12 com proteÃƒÂ§ÃƒÂµes e distÃƒÂ¢ncias de seguranÃƒÂ§a",
+    price: 49.90, originalPrice: 74.90, categoryId: 1, coverImage: "/images/apostilas/nr12.svg",
+    pages: 112, format: "PDF", tags: ["NR-12","mÃƒÂ¡quinas","equipamentos"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 178, salesCount: 967,
+  },
+  {
+    id: 7, title: "NR-17 Ã¢â‚¬â€œ Ergonomia", slug: "nr-17-ergonomia",
+    description: "Ergonomia aplicada ao trabalho: mobiliÃƒÂ¡rio, equipamentos, condiÃƒÂ§ÃƒÂµes ambientais, organizaÃƒÂ§ÃƒÂ£o do trabalho e AET. Inclui fichas de avaliaÃƒÂ§ÃƒÂ£o.",
+    shortDescription: "Ergonomia completa com AET e fichas",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr17.svg",
+    pages: 82, format: "PDF", tags: ["NR-17","ergonomia","AET"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 112, salesCount: 634,
+  },
+  {
+    id: 8, title: "NR-18 Ã¢â‚¬â€œ CondiÃƒÂ§ÃƒÂµes e Meio Ambiente de Trabalho na IndÃƒÂºstria da ConstruÃƒÂ§ÃƒÂ£o", slug: "nr-18-construcao-civil",
+    description: "NR-18 atualizada para construÃƒÂ§ÃƒÂ£o civil: PCMAT, estruturas, escadas, proteÃƒÂ§ÃƒÂµes coletivas e individuais. Material completo com ilustraÃƒÂ§ÃƒÂµes tÃƒÂ©cnicas.",
+    shortDescription: "NR-18 construÃƒÂ§ÃƒÂ£o civil com PCMAT",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/nr18.svg",
+    pages: 128, format: "PDF", tags: ["NR-18","construÃƒÂ§ÃƒÂ£o civil","PCMAT"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 145, salesCount: 789,
+  },
+  {
+    id: 9, title: "NR-23 Ã¢â‚¬â€œ ProteÃƒÂ§ÃƒÂ£o Contra IncÃƒÂªndios", slug: "nr-23-incendios",
+    description: "ProteÃƒÂ§ÃƒÂ£o contra incÃƒÂªndios: saÃƒÂ­das de emergÃƒÂªncia, sinalizaÃƒÂ§ÃƒÂ£o, extintores e sistemas fixos. Inclui plano de emergÃƒÂªncia modelo.",
+    shortDescription: "ProteÃƒÂ§ÃƒÂ£o contra incÃƒÂªndios e plano de emergÃƒÂªncia",
+    price: 39.90, categoryId: 4, coverImage: "/images/apostilas/nr23.svg",
+    pages: 75, format: "PDF", tags: ["NR-23","incÃƒÂªndio","emergÃƒÂªncia"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 88, salesCount: 445,
+  },
+  {
+    id: 10, title: "NR-33 Ã¢â‚¬â€œ SeguranÃƒÂ§a e SaÃƒÂºde nos Trabalhos em EspaÃƒÂ§os Confinados", slug: "nr-33-espacos-confinados",
+    description: "EspaÃƒÂ§os confinados: identificaÃƒÂ§ÃƒÂ£o, avaliaÃƒÂ§ÃƒÂ£o atmosfÃƒÂ©rica, EPI especÃƒÂ­fico, resgate e procedimentos de emergÃƒÂªncia. Inclui PTE modelo.",
+    shortDescription: "EspaÃƒÂ§os confinados completo com PTE",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/nr33.svg",
+    pages: 95, format: "PDF", tags: ["NR-33","espaÃƒÂ§o confinado","PTE"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 167, salesCount: 892,
+  },
+  {
+    id: 11, title: "NR-35 Ã¢â‚¬â€œ Trabalho em Altura", slug: "nr-35-trabalho-em-altura",
+    description: "Trabalho em altura: anÃƒÂ¡lise de risco, ART, sistemas de proteÃƒÂ§ÃƒÂ£o coletiva e individual, escadas e andaimes. PT modelo inclusa.",
+    shortDescription: "NR-35 com ART e PT modelo",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/nr35.svg",
+    pages: 88, format: "PDF", tags: ["NR-35","trabalho em altura","ART"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 231, salesCount: 1456,
+  },
+  {
+    id: 12, title: "Primeiros Socorros Ã¢â‚¬â€œ APH BÃƒÂ¡sico", slug: "primeiros-socorros-aph-basico",
+    description: "Curso completo de APH BÃƒÂ¡sico: avaliaÃƒÂ§ÃƒÂ£o da cena, cinemÃƒÂ¡tica do trauma, avaliaÃƒÂ§ÃƒÂ£o da vÃƒÂ­tima, suporte bÃƒÂ¡sico de vida e transporte de emergÃƒÂªncia.",
+    shortDescription: "APH BÃƒÂ¡sico completo com avaliaÃƒÂ§ÃƒÂ£o e transporte",
+    price: 49.90, originalPrice: 74.90, categoryId: 2, coverImage: "/images/apostilas/aph.svg",
+    pages: 145, format: "PDF", tags: ["APH","primeiros socorros","trauma"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 312, salesCount: 2103,
+  },
+  {
+    id: 13, title: "RCP Ã¢â‚¬â€œ RessuscitaÃƒÂ§ÃƒÂ£o Cardiopulmonar Atualizada", slug: "rcp-ressuscitacao-cardiopulmonar",
+    description: "RCP conforme diretrizes AHA 2020-2025: reconhecimento de PCR, acionamento do SAMU, compressÃƒÂµes torÃƒÂ¡cicas, ventilaÃƒÂ§ÃƒÂ£o e uso do DEA.",
+    shortDescription: "RCP atualizado AHA 2025 com DEA",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/rcp.svg",
+    pages: 68, format: "PDF", tags: ["RCP","PCR","DEA","AHA"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 287, salesCount: 1876,
+  },
+  {
+    id: 14, title: "Trauma e ImobilizaÃƒÂ§ÃƒÂ£o Ã¢â‚¬â€œ TÃƒÂ©cnicas AvanÃƒÂ§adas", slug: "trauma-imobilizacao",
+    description: "TÃƒÂ©cnicas de imobilizaÃƒÂ§ÃƒÂ£o: coluna cervical, membros, pelve e tÃƒÂ³rax. Inclui uso de prancha longa, maca caixÃƒÂ£o e KED. Com fotos ilustrativas.",
+    shortDescription: "ImobilizaÃƒÂ§ÃƒÂ£o completa com tÃƒÂ©cnicas avanÃƒÂ§adas",
+    price: 44.90, originalPrice: 59.90, categoryId: 2, coverImage: "/images/apostilas/trauma.svg",
+    pages: 98, format: "PDF", tags: ["trauma","imobilizaÃƒÂ§ÃƒÂ£o","coluna"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 156, salesCount: 934,
+  },
+  {
+    id: 15, title: "Queimaduras Ã¢â‚¬â€œ AvaliaÃƒÂ§ÃƒÂ£o e Tratamento PrÃƒÂ©-Hospitalar", slug: "queimaduras-aph",
+    description: "ClassificaÃƒÂ§ÃƒÂ£o de queimaduras, cÃƒÂ¡lculo da ÃƒÂ¡rea queimada (regra dos 9), reposiÃƒÂ§ÃƒÂ£o volÃƒÂªmica e cuidados prÃƒÂ©-hospitalares especializados.",
+    shortDescription: "Queimaduras: classificaÃƒÂ§ÃƒÂ£o e tratamento",
+    price: 34.90, categoryId: 2, coverImage: "/images/apostilas/queimaduras.svg",
+    pages: 55, format: "PDF", tags: ["queimaduras","APH","regra dos 9"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 78, salesCount: 421,
+  },
+  {
+    id: 16, title: "Afogamento Ã¢â‚¬â€œ Resgate e Suporte de Vida", slug: "afogamento-resgate",
+    description: "Protocolo de resgate em afogamento: classificaÃƒÂ§ÃƒÂ£o de Szpilman, ressuscitaÃƒÂ§ÃƒÂ£o de afogados, hipotermia e cuidados especiais.",
+    shortDescription: "Afogamento: protocolo e resgate aquÃƒÂ¡tico",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/afogamento.svg",
+    pages: 72, format: "PDF", tags: ["afogamento","resgate aquÃƒÂ¡tico","Szpilman"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 94, salesCount: 567,
+  },
+  {
+    id: 17, title: "Busca e Resgate em Estruturas Colapsadas (BREC)", slug: "brec-estruturas-colapsadas",
+    description: "TÃƒÂ©cnicas de busca e resgate em estruturas colapsadas: avaliaÃƒÂ§ÃƒÂ£o estrutural, tÃƒÂ©cnicas de busca, escoramentos e extraÃƒÂ§ÃƒÂ£o de vÃƒÂ­timas.",
+    shortDescription: "BREC completo com escoramentos e extraÃƒÂ§ÃƒÂ£o",
+    price: 59.90, originalPrice: 84.90, categoryId: 3, coverImage: "/images/apostilas/brec.svg",
+    pages: 168, format: "PDF", tags: ["BREC","resgate","estruturas"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 4.9, reviewCount: 134, salesCount: 678,
+  },
+  {
+    id: 18, title: "TÃƒÂ©cnicas de Rapel e Descidas em Ambientes Verticais", slug: "rapel-ambientes-verticais",
+    description: "TÃƒÂ©cnicas de rapel para resgatistas: equipamentos, ancoragens, sistemas de freio, autoasseguraÃƒÂ§ÃƒÂ£o e resgate em altura.",
+    shortDescription: "Rapel e descidas verticais para resgatistas",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/rapel.svg",
+    pages: 112, format: "PDF", tags: ["rapel","resgate vertical","ancoragem"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 167, salesCount: 823,
+  },
+  {
+    id: 19, title: "Resgate Veicular Ã¢â‚¬â€œ TÃƒÂ©cnicas de Desencarceramento", slug: "resgate-veicular",
+    description: "Desencarceramento de vÃƒÂ­timas em acidentes veiculares: anÃƒÂ¡lise estrutural de veÃƒÂ­culos, uso de ferramentas hidrÃƒÂ¡ulicas e procedimentos de seguranÃƒÂ§a.",
+    shortDescription: "Desencarceramento e resgate veicular",
+    price: 54.90, originalPrice: 74.90, categoryId: 3, coverImage: "/images/apostilas/veicular.svg",
+    pages: 134, format: "PDF", tags: ["resgate veicular","desencarceramento","hidrÃƒÂ¡ulico"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 112, salesCount: 534,
+  },
+  {
+    id: 20, title: "Salvamento AquÃƒÂ¡tico Ã¢â‚¬â€œ TÃƒÂ©cnicas e Protocolos", slug: "salvamento-aquatico",
+    description: "Salvamento aquÃƒÂ¡tico: tÃƒÂ©cnicas de aproximaÃƒÂ§ÃƒÂ£o, reboques, extraÃƒÂ§ÃƒÂ£o e cuidados pÃƒÂ³s-resgate. Inclui operaÃƒÂ§ÃƒÂµes noturnas e em correntezas.",
+    shortDescription: "Salvamento aquÃƒÂ¡tico completo",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/aquatico.svg",
+    pages: 125, format: "PDF", tags: ["salvamento aquÃƒÂ¡tico","correnteza","extraÃƒÂ§ÃƒÂ£o"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 88, salesCount: 412,
+  },
+  {
+    id: 21, title: "Combate a IncÃƒÂªndio Ã¢â‚¬â€œ TÃƒÂ©cnicas e Equipamentos", slug: "combate-incendio",
+    description: "TÃƒÂ©cnicas de combate a incÃƒÂªndio: tipos de fogo, extintores, hidrantes, mangueiras e procedimentos de seguranÃƒÂ§a para brigadistas.",
+    shortDescription: "Combate a incÃƒÂªndio para brigadistas",
+    price: 44.90, originalPrice: 59.90, categoryId: 4, coverImage: "/images/apostilas/incendio.svg",
+    pages: 98, format: "PDF", tags: ["incÃƒÂªndio","brigadista","extintor"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 143, salesCount: 756,
+  },
+  {
+    id: 22, title: "Brigada de EmergÃƒÂªncia Ã¢â‚¬â€œ FormaÃƒÂ§ÃƒÂ£o e Treinamento", slug: "brigada-emergencia",
+    description: "FormaÃƒÂ§ÃƒÂ£o de brigada de emergÃƒÂªncia: organizaÃƒÂ§ÃƒÂ£o, treinamentos, simulados, plano de abandono e comunicaÃƒÂ§ÃƒÂ£o em emergÃƒÂªncias.",
+    shortDescription: "Brigada de emergÃƒÂªncia completo",
+    price: 39.90, categoryId: 4, coverImage: "/images/apostilas/brigada.svg",
+    pages: 86, format: "PDF", tags: ["brigada","emergÃƒÂªncia","simulado"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 97, salesCount: 478,
+  },
+  {
+    id: 23, title: "PPRA e PCMSO Ã¢â‚¬â€œ ElaboraÃƒÂ§ÃƒÂ£o e ImplementaÃƒÂ§ÃƒÂ£o", slug: "ppra-pcmso",
+    description: "Guia prÃƒÂ¡tico para elaboraÃƒÂ§ÃƒÂ£o do PPRA e PCMSO: reconhecimento de riscos, avaliaÃƒÂ§ÃƒÂ£o, controle e documentaÃƒÂ§ÃƒÂ£o completa.",
+    shortDescription: "PPRA e PCMSO: guia prÃƒÂ¡tico completo",
+    price: 49.90, originalPrice: 69.90, categoryId: 1, coverImage: "/images/apostilas/ppra.svg",
+    pages: 118, format: "PDF", tags: ["PPRA","PCMSO","riscos"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 189, salesCount: 1023,
+  },
+  {
+    id: 24, title: "LTCAT Ã¢â‚¬â€œ Laudo TÃƒÂ©cnico das CondiÃƒÂ§ÃƒÂµes Ambientais", slug: "ltcat",
+    description: "ElaboraÃƒÂ§ÃƒÂ£o do LTCAT: agentes fÃƒÂ­sicos, quÃƒÂ­micos e biolÃƒÂ³gicos, metodologia de avaliaÃƒÂ§ÃƒÂ£o e modelos de laudos tÃƒÂ©cnicos.",
+    shortDescription: "LTCAT: elaboraÃƒÂ§ÃƒÂ£o e modelos",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/ltcat.svg",
+    pages: 95, format: "PDF", tags: ["LTCAT","aposentadoria especial","agentes"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 134, salesCount: 678,
+  },
+  {
+    id: 25, title: "EPC Ã¢â‚¬â€œ Equipamentos de ProteÃƒÂ§ÃƒÂ£o Coletiva", slug: "epc-equipamentos-coletivos",
+    description: "EPC: tipos, aplicaÃƒÂ§ÃƒÂµes, instalaÃƒÂ§ÃƒÂ£o e manutenÃƒÂ§ÃƒÂ£o. Guarda-corpo, redes de proteÃƒÂ§ÃƒÂ£o, sinalizaÃƒÂ§ÃƒÂ£o e dispositivos de seguranÃƒÂ§a.",
+    shortDescription: "EPC completo: tipos e instalaÃƒÂ§ÃƒÂ£o",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/epc.svg",
+    pages: 78, format: "PDF", tags: ["EPC","proteÃƒÂ§ÃƒÂ£o coletiva","guarda-corpo"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 76, salesCount: 354,
+  },
+  {
+    id: 26, title: "AnÃƒÂ¡lise de Acidente de Trabalho Ã¢â‚¬â€œ MÃƒÂ©todos e TÃƒÂ©cnicas", slug: "analise-acidente-trabalho",
+    description: "Metodologias de anÃƒÂ¡lise de acidentes: ÃƒÂrvore de Causas, FMEA, 5 PorquÃƒÂªs e relatÃƒÂ³rios tÃƒÂ©cnicos. Com modelos prontos.",
+    shortDescription: "AnÃƒÂ¡lise de acidentes com mÃƒÂ©todos e modelos",
+    price: 44.90, originalPrice: 64.90, categoryId: 1, coverImage: "/images/apostilas/acidente.svg",
+    pages: 102, format: "PDF", tags: ["acidente","anÃƒÂ¡lise","ÃƒÂ¡rvore de causas"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 156, salesCount: 812,
+  },
+  {
+    id: 27, title: "Higiene Ocupacional Ã¢â‚¬â€œ RuÃƒÂ­do, Calor e Produtos QuÃƒÂ­micos", slug: "higiene-ocupacional",
+    description: "AvaliaÃƒÂ§ÃƒÂ£o de agentes fÃƒÂ­sicos e quÃƒÂ­micos: dosimetria de ruÃƒÂ­do, mediÃƒÂ§ÃƒÂ£o de calor (IBUTG), avaliaÃƒÂ§ÃƒÂ£o de quÃƒÂ­micos e limites de tolerÃƒÂ¢ncia.",
+    shortDescription: "Higiene ocupacional: mediÃƒÂ§ÃƒÂ£o e avaliaÃƒÂ§ÃƒÂ£o",
+    price: 49.90, categoryId: 1, coverImage: "/images/apostilas/higiene.svg",
+    pages: 114, format: "PDF", tags: ["higiene","ruÃƒÂ­do","IBUTG","quÃƒÂ­micos"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 123, salesCount: 634,
+  },
+  {
+    id: 28, title: "NR-7 Ã¢â‚¬â€œ Programa de Controle MÃƒÂ©dico de SaÃƒÂºde Ocupacional", slug: "nr-7-pcmso",
+    description: "NR-7 completa: PCMSO, ASO, exames obrigatÃƒÂ³rios, SESMT e responsabilidades. Modelos de documentos inclusos.",
+    shortDescription: "NR-7 e PCMSO com modelos",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr7.svg",
+    pages: 82, format: "PDF", tags: ["NR-7","PCMSO","ASO"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 98, salesCount: 512,
+  },
+  {
+    id: 29, title: "NR-9 Ã¢â‚¬â€œ AvaliaÃƒÂ§ÃƒÂ£o e Controle das ExposiÃƒÂ§ÃƒÂµes Ocupacionais", slug: "nr-9-exposicoes",
+    description: "NR-9 atualizada: PGR, identificaÃƒÂ§ÃƒÂ£o de perigos, avaliaÃƒÂ§ÃƒÂ£o quantitativa e qualitativa e hierarquia de controles.",
+    shortDescription: "NR-9 com PGR atualizado",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr9.svg",
+    pages: 88, format: "PDF", tags: ["NR-9","PGR","exposiÃƒÂ§ÃƒÂ£o"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 87, salesCount: 423,
+  },
+  {
+    id: 30, title: "NR-15 Ã¢â‚¬â€œ Atividades e OperaÃƒÂ§ÃƒÂµes Insalubres", slug: "nr-15-insalubridade",
+    description: "NR-15 completa: agentes insalubres, graus de insalubridade, metodologia de avaliaÃƒÂ§ÃƒÂ£o e laudos de insalubridade. Todos os anexos.",
+    shortDescription: "NR-15 insalubridade completa com anexos",
+    price: 44.90, originalPrice: 59.90, categoryId: 1, coverImage: "/images/apostilas/nr15.svg",
+    pages: 108, format: "PDF", tags: ["NR-15","insalubridade","agentes"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 167, salesCount: 867,
+  },
+  {
+    id: 31, title: "NR-16 Ã¢â‚¬â€œ Atividades e OperaÃƒÂ§ÃƒÂµes Perigosas", slug: "nr-16-periculosidade",
+    description: "NR-16 completa: atividades perigosas, adicional de periculosidade, explosivos, inflamÃƒÂ¡veis, eletricidade e seguranÃƒÂ§a pessoal.",
+    shortDescription: "NR-16 periculosidade completa",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/nr16.svg",
+    pages: 78, format: "PDF", tags: ["NR-16","periculosidade","adicional"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 89, salesCount: 445,
+  },
+  {
+    id: 32, title: "NR-20 Ã¢â‚¬â€œ SeguranÃƒÂ§a e SaÃƒÂºde no Trabalho com InflamÃƒÂ¡veis e CombustÃƒÂ­veis", slug: "nr-20-inflamaveis",
+    description: "NR-20: classificaÃƒÂ§ÃƒÂ£o de inflamÃƒÂ¡veis, instalaÃƒÂ§ÃƒÂµes, procedimentos operacionais, treinamentos e emergÃƒÂªncias com produtos inflamÃƒÂ¡veis.",
+    shortDescription: "NR-20 inflamÃƒÂ¡veis e combustÃƒÂ­veis",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/nr20.svg",
+    pages: 92, format: "PDF", tags: ["NR-20","inflamÃƒÂ¡vel","combustÃƒÂ­vel"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 104, salesCount: 523,
+  },
+  {
+    id: 33, title: "NR-25 Ã¢â‚¬â€œ ResÃƒÂ­duos Industriais", slug: "nr-25-residuos",
+    description: "GestÃƒÂ£o de resÃƒÂ­duos industriais: classificaÃƒÂ§ÃƒÂ£o, armazenamento, tratamento e destinaÃƒÂ§ÃƒÂ£o final conforme NR-25 e legislaÃƒÂ§ÃƒÂ£o ambiental.",
+    shortDescription: "ResÃƒÂ­duos industriais: gestÃƒÂ£o completa",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr25.svg",
+    pages: 65, format: "PDF", tags: ["NR-25","resÃƒÂ­duos","ambiental"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.5, reviewCount: 56, salesCount: 267,
+  },
+  {
+    id: 34, title: "NR-26 Ã¢â‚¬â€œ SinalizaÃƒÂ§ÃƒÂ£o de SeguranÃƒÂ§a", slug: "nr-26-sinalizacao",
+    description: "SinalizaÃƒÂ§ÃƒÂ£o de seguranÃƒÂ§a: cores, sÃƒÂ­mbolos, pictogramas, GHS e aplicaÃƒÂ§ÃƒÂµes prÃƒÂ¡ticas. Inclui galeria de sinalizaÃƒÂ§ÃƒÂµes.",
+    shortDescription: "SinalizaÃƒÂ§ÃƒÂ£o de seguranÃƒÂ§a e GHS",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr26.svg",
+    pages: 68, format: "PDF", tags: ["NR-26","sinalizaÃƒÂ§ÃƒÂ£o","GHS"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 72, salesCount: 345,
+  },
+  {
+    id: 35, title: "Incidente CrÃƒÂ­tico e GestÃƒÂ£o do Estresse em EmergÃƒÂªncias", slug: "estresse-emergencias",
+    description: "GestÃƒÂ£o do estresse em situaÃƒÂ§ÃƒÂµes de emergÃƒÂªncia: reconhecimento, prevenÃƒÂ§ÃƒÂ£o e intervenÃƒÂ§ÃƒÂ£o em incidentes crÃƒÂ­ticos para socorristas.",
+    shortDescription: "Estresse e incidentes crÃƒÂ­ticos para socorristas",
+    price: 34.90, categoryId: 2, coverImage: "/images/apostilas/estresse.svg",
+    pages: 58, format: "PDF", tags: ["estresse","incidente crÃƒÂ­tico","socorrista"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 82, salesCount: 389,
+  },
+  {
+    id: 36, title: "Parto de EmergÃƒÂªncia e ObstetrÃƒÂ­cia PrÃƒÂ©-Hospitalar", slug: "parto-emergencia",
+    description: "Atendimento obstÃƒÂ©trico prÃƒÂ©-hospitalar: parto normal, complicaÃƒÂ§ÃƒÂµes, cuidados com o recÃƒÂ©m-nascido e transferÃƒÂªncia segura.",
+    shortDescription: "ObstetrÃƒÂ­cia prÃƒÂ©-hospitalar e parto de emergÃƒÂªncia",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/parto.svg",
+    pages: 74, format: "PDF", tags: ["parto","obstetrÃƒÂ­cia","APH"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 93, salesCount: 467,
+  },
+  {
+    id: 37, title: "Atendimento PediÃƒÂ¡trico e Neonatal em EmergÃƒÂªncias", slug: "pediatria-emergencia",
+    description: "EmergÃƒÂªncias pediÃƒÂ¡tricas e neonatais: RCP pediÃƒÂ¡trica, avaliaÃƒÂ§ÃƒÂ£o, acesso venoso e transporte seguro de crianÃƒÂ§as.",
+    shortDescription: "Pediatria de emergÃƒÂªncia e RCP pediÃƒÂ¡trica",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/pediatria.svg",
+    pages: 79, format: "PDF", tags: ["pediatria","neonato","RCP"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 108, salesCount: 534,
+  },
+  {
+    id: 38, title: "Resgate em Ambiente AquÃƒÂ¡tico Ã¢â‚¬â€œ Correntezas e InundaÃƒÂ§ÃƒÂµes", slug: "resgate-correnteza",
+    description: "TÃƒÂ©cnicas de resgate em correntezas e inundaÃƒÂ§ÃƒÂµes: lanÃƒÂ§amento de cordas, tÃƒÂ©cnicas de nado, ancoragens e operaÃƒÂ§ÃƒÂµes em rios.",
+    shortDescription: "Resgate em correntezas e inundaÃƒÂ§ÃƒÂµes",
+    price: 54.90, originalPrice: 74.90, categoryId: 3, coverImage: "/images/apostilas/correnteza.svg",
+    pages: 138, format: "PDF", tags: ["correnteza","inundaÃƒÂ§ÃƒÂ£o","resgate aquÃƒÂ¡tico"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 121, salesCount: 601,
+  },
+  {
+    id: 39, title: "Trabalho em EspaÃƒÂ§os Confinados Ã¢â‚¬â€œ Treinamento PrÃƒÂ¡tico", slug: "espaco-confinado-pratico",
+    description: "PrÃƒÂ¡tica em espaÃƒÂ§os confinados: monitoramento atmosfÃƒÂ©rico, sistemas de ventilaÃƒÂ§ÃƒÂ£o, equipamentos de resgate e comunicaÃƒÂ§ÃƒÂ£o.",
+    shortDescription: "EspaÃƒÂ§os confinados: treinamento prÃƒÂ¡tico",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/confinado2.svg",
+    pages: 105, format: "PDF", tags: ["espaÃƒÂ§o confinado","prÃƒÂ¡tico","monitoramento"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 98, salesCount: 489,
+  },
+  {
+    id: 40, title: "Produtos Perigosos Ã¢â‚¬â€œ Transporte e EmergÃƒÂªncias (ABNT)", slug: "produtos-perigosos-transporte",
+    description: "Transporte de produtos perigosos: classificaÃƒÂ§ÃƒÂ£o ONU, painÃƒÂ©is de risco, FISPQ, procedimentos de emergÃƒÂªncia e PMERPP.",
+    shortDescription: "Produtos perigosos: transporte e emergÃƒÂªncias",
+    price: 49.90, categoryId: 3, coverImage: "/images/apostilas/perigosos.svg",
+    pages: 118, format: "PDF", tags: ["produtos perigosos","ONU","FISPQ"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 143, salesCount: 712,
+  },
+  {
+    id: 41, title: "Plano de Resposta a EmergÃƒÂªncias Ã¢â‚¬â€œ ElaboraÃƒÂ§ÃƒÂ£o Completa", slug: "plano-resposta-emergencias",
+    description: "ElaboraÃƒÂ§ÃƒÂ£o de PAE e PRE: anÃƒÂ¡lise de riscos, acionamento, fluxogramas, responsabilidades e simulados. Com modelos editÃƒÂ¡veis.",
+    shortDescription: "PAE e PRE: elaboraÃƒÂ§ÃƒÂ£o e modelos",
+    price: 54.90, originalPrice: 74.90, categoryId: 4, coverImage: "/images/apostilas/pae.svg",
+    pages: 142, format: "PDF", tags: ["PAE","PRE","emergÃƒÂªncia"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 134, salesCount: 678,
+  },
+  {
+    id: 42, title: "FISPQ Ã¢â‚¬â€œ Ficha de InformaÃƒÂ§ÃƒÂµes de SeguranÃƒÂ§a de Produtos QuÃƒÂ­micos", slug: "fispq-produtos-quimicos",
+    description: "InterpretaÃƒÂ§ÃƒÂ£o e elaboraÃƒÂ§ÃƒÂ£o de FISPQ: 16 seÃƒÂ§ÃƒÂµes, GHS, pictogramas e aplicaÃƒÂ§ÃƒÂ£o prÃƒÂ¡tica na empresa. Casos prÃƒÂ¡ticos resolvidos.",
+    shortDescription: "FISPQ: interpretaÃƒÂ§ÃƒÂ£o e elaboraÃƒÂ§ÃƒÂ£o",
+    price: 39.90, categoryId: 1, coverImage: "/images/apostilas/fispq.svg",
+    pages: 82, format: "PDF", tags: ["FISPQ","GHS","quÃƒÂ­mico"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 87, salesCount: 423,
+  },
+  {
+    id: 43, title: "SeguranÃƒÂ§a em LaboratÃƒÂ³rios Ã¢â‚¬â€œ Boas PrÃƒÂ¡ticas e NBR", slug: "seguranca-laboratorio",
+    description: "SeguranÃƒÂ§a em laboratÃƒÂ³rios: EPIs especÃƒÂ­ficos, manuseio de produtos quÃƒÂ­micos, biosseguranÃƒÂ§a, descarte e emergÃƒÂªncias.",
+    shortDescription: "SeguranÃƒÂ§a em laboratÃƒÂ³rios: boas prÃƒÂ¡ticas",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/laboratorio.svg",
+    pages: 88, format: "PDF", tags: ["laboratÃƒÂ³rio","biosseguranÃƒÂ§a","EPI"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 76, salesCount: 367,
+  },
+  {
+    id: 44, title: "ProteÃƒÂ§ÃƒÂ£o RespiratÃƒÂ³ria Ã¢â‚¬â€œ SeleÃƒÂ§ÃƒÂ£o e Uso de Respiradores", slug: "protecao-respiratoria",
+    description: "Programa de proteÃƒÂ§ÃƒÂ£o respiratÃƒÂ³ria: seleÃƒÂ§ÃƒÂ£o, inspeÃƒÂ§ÃƒÂ£o, limpeza, guarda e descarte de respiradores. Teste de vedaÃƒÂ§ÃƒÂ£o e treinamento.",
+    shortDescription: "ProteÃƒÂ§ÃƒÂ£o respiratÃƒÂ³ria: programa completo",
+    price: 39.90, categoryId: 5, coverImage: "/images/apostilas/respirador.svg",
+    pages: 76, format: "PDF", tags: ["respirador","proteÃƒÂ§ÃƒÂ£o respiratÃƒÂ³ria","EPI"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 89, salesCount: 445,
+  },
+  {
+    id: 45, title: "Medicina do Trabalho Ã¢â‚¬â€œ DoenÃƒÂ§as Ocupacionais", slug: "doencas-ocupacionais",
+    description: "Principais doenÃƒÂ§as ocupacionais: LER/DORT, pneumoconioses, PAIR, intoxicaÃƒÂ§ÃƒÂµes e transtornos mentais relacionados ao trabalho.",
+    shortDescription: "DoenÃƒÂ§as ocupacionais: prevenÃƒÂ§ÃƒÂ£o e diagnÃƒÂ³stico",
+    price: 44.90, categoryId: 1, coverImage: "/images/apostilas/medicina.svg",
+    pages: 112, format: "PDF", tags: ["doenÃƒÂ§as ocupacionais","LER","PAIR"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 112, salesCount: 567,
+  },
+  {
+    id: 46, title: "ComunicaÃƒÂ§ÃƒÂ£o em EmergÃƒÂªncias Ã¢â‚¬â€œ RÃƒÂ¡dio e Sistemas", slug: "comunicacao-emergencias",
+    description: "ComunicaÃƒÂ§ÃƒÂ£o em emergÃƒÂªncias: rÃƒÂ¡dio VHF/UHF, alfabeto fonÃƒÂ©tico, procedimentos operacionais e comunicaÃƒÂ§ÃƒÂ£o interagÃƒÂªncias.",
+    shortDescription: "RÃƒÂ¡dio e comunicaÃƒÂ§ÃƒÂ£o em emergÃƒÂªncias",
+    price: 34.90, categoryId: 3, coverImage: "/images/apostilas/radio.svg",
+    pages: 65, format: "PDF", tags: ["comunicaÃƒÂ§ÃƒÂ£o","rÃƒÂ¡dio","emergÃƒÂªncia"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.6, reviewCount: 67, salesCount: 312,
+  },
+  {
+    id: 47, title: "Acidente Ampliado Ã¢â‚¬â€œ GestÃƒÂ£o de MÃƒÂºltiplas VÃƒÂ­timas", slug: "multiplas-vitimas",
+    description: "START e SALT triage, postos mÃƒÂ©dicos avanÃƒÂ§ados, comando de incidentes (ICS/COGS) e gestÃƒÂ£o de mÃƒÂºltiplas vÃƒÂ­timas.",
+    shortDescription: "MÃƒÂºltiplas vÃƒÂ­timas: triagem e gestÃƒÂ£o",
+    price: 49.90, originalPrice: 69.90, categoryId: 2, coverImage: "/images/apostilas/multiplas.svg",
+    pages: 128, format: "PDF", tags: ["mÃƒÂºltiplas vÃƒÂ­timas","START","triagem"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.8, reviewCount: 134, salesCount: 678,
+  },
+  {
+    id: 48, title: "NR-4 Ã¢â‚¬â€œ SESMT Ã¢â‚¬â€œ ServiÃƒÂ§os Especializados em SeguranÃƒÂ§a", slug: "nr-4-sesmt",
+    description: "NR-4 completa: dimensionamento do SESMT, atividades, registros e integraÃƒÂ§ÃƒÂ£o com CIPA e terceiros.",
+    shortDescription: "NR-4 e SESMT: dimensionamento e atividades",
+    price: 34.90, categoryId: 1, coverImage: "/images/apostilas/nr4.svg",
+    pages: 62, format: "PDF", tags: ["NR-4","SESMT","dimensionamento"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.5, reviewCount: 54, salesCount: 256,
+  },
+  {
+    id: 49, title: "Psicologia das EmergÃƒÂªncias Ã¢â‚¬â€œ Suporte e IntervenÃƒÂ§ÃƒÂ£o", slug: "psicologia-emergencias",
+    description: "Suporte psicolÃƒÂ³gico em emergÃƒÂªncias: primeiros auxilios psicolÃƒÂ³gicos, debriefing, suporte a vÃƒÂ­timas e familiares.",
+    shortDescription: "Psicologia em emergÃƒÂªncias: suporte e debriefing",
+    price: 39.90, categoryId: 2, coverImage: "/images/apostilas/psicologia.svg",
+    pages: 78, format: "PDF", tags: ["psicologia","suporte","debriefing"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: false, rating: 4.7, reviewCount: 88, salesCount: 423,
+  },
+  {
+    id: 50, title: "Pack Completo Ã¢â‚¬â€œ 50 Apostilas Kleber Store", slug: "pack-completo-50-apostilas",
+    description: "Pacote completo com todas as 50 apostilas da Kleber Store em PDF. SeguranÃƒÂ§a do Trabalho, APH, Resgate e muito mais. Acesso vitalÃƒÂ­cio e atualizaÃƒÂ§ÃƒÂµes gratuitas.",
+    shortDescription: "Todas as 50 apostilas por um preÃƒÂ§o especial!",
+    price: 297.00, originalPrice: 599.00, categoryId: 1, coverImage: "/images/apostilas/pack.svg",
+    pages: 4500, format: "PDF", tags: ["pack","completo","50 apostilas"],
+    mercadoPagoLink: MP, pagBankLink: PB, featured: true, rating: 5.0, reviewCount: 421, salesCount: 3456,
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+export function getProductBySlug(slug: string): Product | undefined {
+  return PRODUCTS.find((p) => p.slug === slug);
+}
+
+export function getProductsByCategory(categoryId: number): Product[] {
+  return PRODUCTS.filter((p) => p.categoryId === categoryId);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return PRODUCTS.filter((p) => p.featured);
+}
+
+export function searchProducts(query: string): Product[] {
+  const q = query.toLowerCase();
+  return PRODUCTS.filter(
+    (p) =>
+      p.title.toLowerCase().includes(q) ||
+      p.shortDescription.toLowerCase().includes(q) ||
+      p.tags.some((t) => t.toLowerCase().includes(q))
+  );
+}
+
+export function formatPrice(price: number): string {
+  return price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+
+
+
